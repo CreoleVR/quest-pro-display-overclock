@@ -1,0 +1,6 @@
+id=qp_refresh120
+name=Quest Pro Display Overclock
+version=v2.1
+versionCode=6
+author=CreoleVR
+description=unlocks 100/110/120 hz on the meta quest pro (seacliff). live-patches the dsi refresh-rate table and re-inits the display composers so the rates appear; head tracking and passthrough are preserved. applied in memory at boot - no system partition touched - so disabling reverts the headset.

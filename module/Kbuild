@@ -1,0 +1,9 @@
+obj-m += qp_refresh120.o
+ccflags-y := -I$(srctree)/include/drm \
+	-I$(srctree)/techpack/display/msm \
+	-I$(srctree)/techpack/display/msm/dsi \
+	-I$(srctree)/techpack/display/msm/dp \
+	-I$(srctree)/techpack/display/msm/sde \
+	-I$(srctree)/techpack/display/rotator \
+	-include $(srctree)/techpack/display/config/konadispconf.h \
+	-Wno-error
