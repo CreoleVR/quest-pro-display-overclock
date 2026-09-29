@@ -1,6 +1,6 @@
 id=qp_refresh165
 name=Quest Pro Display Overclock 165
-version=v3.2
-versionCode=9
+version=v3.3
+versionCode=10
 author=CreoleVR
-description=unlocks 100/110/120/144/165 hz on the meta quest pro (seacliff). live-patches the dsi refresh-rate table and re-inits the display composers so the rates appear; head tracking and passthrough are preserved. switches meta's compositor to direct mode so 144/165 hz show every frame, and delays each slice per refresh rate (meta's debug.oculus.sliceDelay) so direct mode doesn't tear; falls back to writeback if a boot doesn't finish. applied in memory at boot - no system partition touched - so disabling reverts the headset. replaces qp_refresh120.
+description=unlocks 100/110/120/144/165/180 hz on the meta quest pro (seacliff). live-patches the dsi refresh-rate table and re-inits the display composers so the rates appear; head tracking and passthrough are preserved. switches meta's compositor to direct mode so 144/165/180 hz show every frame, and delays each slice per refresh rate (meta's debug.oculus.sliceDelay) so direct mode doesn't tear; falls back to writeback if a boot doesn't finish. applied in memory at boot - no system partition touched - so disabling reverts the headset. replaces qp_refresh120.

@@ -12,7 +12,7 @@ module_param(get_disp_lo, uint, 0444);
 module_param(dry_run, int, 0444);
 MODULE_PARM_DESC(dry_run, "1 = only read+log, do not modify");
 
-static const u32 addrates[] = { 100, 110, 120, 144, 165 };
+static const u32 addrates[] = { 100, 110, 120, 144, 165, 180 };
 #define NADD ((u32)ARRAY_SIZE(addrates))
 
 static u32 newlist[128];
@@ -90,7 +90,7 @@ static int __init qp_init(void)
 	panel->num_display_modes += NADD * mult;
 	disp->modes = NULL;
 
-	pr_info("qp_refresh165: added 100/110/120/144/165Hz, max=%u list_len=%u num_modes=%u\n",
+	pr_info("qp_refresh165: added 100/110/120/144/165/180Hz, max=%u list_len=%u num_modes=%u\n",
 		dc->max_refresh_rate, dc->dfps_list_len, panel->num_display_modes);
 	return 0;
 }
@@ -98,4 +98,4 @@ static int __init qp_init(void)
 module_init(qp_init);
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("CreoleVR");
-MODULE_DESCRIPTION("Append 100/110/120/144/165Hz to Quest Pro DSI dfps list");
+MODULE_DESCRIPTION("Append 100/110/120/144/165/180Hz to Quest Pro DSI dfps list");

@@ -5,7 +5,7 @@ magisk modules that unlock higher refresh rates on the meta quest pro (seacliff)
 | module | rates |
 |---|---|
 | `qp_refresh120` | 100, 110, 120 hz |
-| `qp_refresh165` | 100, 110, 120, 144, 165 hz |
+| `qp_refresh165` | 100, 110, 120, 144, 165, 180 hz |
 
 install one. `qp_refresh165` replaces `qp_refresh120`.
 
@@ -17,7 +17,7 @@ everything is applied in memory at boot; no partition is touched. disable the mo
 2. reboot
 3. pick the rate in any openxr app
 
-## how 144/165 works
+## how 144/165/180 works
 
 meta's default compositor mode can't finish frames fast enough above ~130 hz, so every frame shows twice. `qp_refresh165` switches it to direct mode and delays each frame slice per refresh rate so it doesn't tear.
 
@@ -28,8 +28,9 @@ meta's default compositor mode can't finish frames fast enough above ~130 hz, so
 
 ## limits
 
-- faint ghosting at 144/165 hz from the lcd's response time
-- 165 hz tears while the quest menu is open (the gpu can't keep up)
+- faint ghosting at 144/165/180 hz from the lcd's response time
+- 165/180 hz tear while the quest menu is open (the gpu can't keep up)
+- color correction is disabled and will introduce chromatic aberration
 
 ## build
 

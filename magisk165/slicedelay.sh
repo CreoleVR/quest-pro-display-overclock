@@ -4,7 +4,8 @@ conf() { sed -n "s/^$1=//p" "$CONF" 2>/dev/null | tail -1; }
 delay() {
   d=$(conf delay$1)
   [ -n "$d" ] && { echo $d; return; }
-  if [ $1 -ge 160 ]; then echo 50
+  if [ $1 -ge 175 ]; then echo 54
+  elif [ $1 -ge 160 ]; then echo 50
   elif [ $1 -ge 140 ]; then echo 45
   elif [ $1 -ge 115 ]; then echo 35
   elif [ $1 -ge 105 ]; then echo 25
