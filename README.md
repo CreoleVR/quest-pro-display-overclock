@@ -45,15 +45,13 @@ use `module/` and `magisk/` for `qp_refresh120`.
 
 ## after an os update
 
-the module can go quiet with no error. the `.ko` is only accepted when its `module_layout` CRC matches the running kernel: on os 2.9 (`4.19.325-cip132-st16-…`) the 2.7 build (`4.19.325-cip128-st12-…`) fails `insmod` with `invalid module format` (rc=8), `post-fs-data.sh` logs that, and `service.sh` then finds no `x120x` in the modes and does nothing.
+after an os update the module can go quiet with no error: a `.ko` is only accepted when its `module_layout` CRC matches the running kernel, so the old build fails `insmod` with `invalid module format` and nothing above 90 hz shows up.
 
-the `.ko` files in the tree are built for os 2.10: kernel `4.19.325-cip132-st16-g023a62479ec4`, `module_layout` CRC `0x499d5efd`. they are rejected on 2.7 and 2.9 — one build serves one kernel — so `module.prop`'s `version` names the os it was built for. os 2.9 was the same `cip132-st16` base at `-g429559e91fe8` and CRC `0x5e8de9ec` — two builds of one kernel version want different CRCs, which is why the version string alone tells you nothing.
+the `.ko` in this tree are for os 2.10 — kernel `4.19.325-cip132-st16-g023a62479ec4`, `module_layout` CRC `0x499d5efd`. one build serves one kernel, so `module.prop`'s `version` names the os it was built for.
 
-to load on another kernel, rebuild from `module/` against that kernel's sources. without the sources, copy two fields out of a `.ko` that does load on it — every `/vendor/lib/modules/*.ko` qualifies: the `vermagic` string in `.modinfo`, and the 8-byte CRC of the `module_layout` entry in `__versions` (`__versions` entry stride is 64 bytes: 8-byte little-endian CRC, then the symbol name). 18 bytes, file size unchanged. if the new version string is longer than the old one there is no room in `.modinfo`; change only the CRC — with CRCs present the kernel compares just the flags tail of `vermagic`, not the version.
+without that kernel's sources, copy two fields out of a module that does load on it — any `/vendor/lib/modules/*.ko` will do: the `vermagic` string in `.modinfo`, and the 8-byte CRC of the `module_layout` entry in `__versions` (entries are 64 bytes: little-endian CRC, then the symbol name). 18 bytes, file size unchanged. if the version string doesn't fit there, change the CRC alone — with CRCs present the kernel ignores the version in `vermagic`.
 
-that patches the gate, not the driver. the shipped `.ko` accepts `dry_run=1`, which prints what it read from the driver without modifying anything: on 2.7, 2.9 and 2.10 that was `type=4 min=72 max=90 list_len=19`, so the struct offsets in `module/qp_refresh120.c` have not needed changing yet. if a future os reports a different shape, those offsets need new values and a CRC copy is not enough. a patched `.ko` loads only on the one kernel build it was patched for.
-
-the checked-in `module/qp_refresh120.c` is older than the shipped `.ko`: it defines no `dry_run`. rebuild from it and you lose that parameter — and the 120 module then has no way to inspect the driver without patching it.
+`insmod qp_refresh120.ko dry_run=1` prints what the module reads without changing anything. if it still reports `type=4 min=72 max=90 list_len=19`, copying is enough. if not, the driver's structs moved and you need a rebuild from `module/` (which has no `dry_run` as checked in — rebuild and you lose it).
 
 ## license
 
